@@ -7,7 +7,7 @@ export class MyOrdersPage{
         this.ordersTableRowLoc = page.locator("tbody tr")
     }
 
-    async navigateToOrderDetailsPage(){
+    async navigateToOrderDetailsPage(orderID){
         
         const orderRows = await this.ordersTableRowLoc
         await this.ordersTable.waitFor();     

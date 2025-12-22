@@ -5,6 +5,7 @@ import { CartPage } from "../pages/CartPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
 import { ThankYouPage } from "../pages/ThankYouPage";
 import { MyOrdersPage } from "../pages/MyOrdersPage";
+import { OrderDetailsPage } from "../pages/OrderDetailsPage";
 
 
 
@@ -57,16 +58,10 @@ test.only("Browser Context Playwright Test", async ({ page }) => {
 
   const myOrdersPage = new MyOrdersPage(page)
 
-  await myOrdersPage.navigateToOrderDetailsPage()
+  await myOrdersPage.navigateToOrderDetailsPage(orderID)
 
+  const orderDetailsPage = new OrderDetailsPage(page)
 
+  await orderDetailsPage.verfiyOrderDetailsPageOrderId(orderID)
 
-
-const oidDetailsPage = await page.locator(".col-text").textContent()
-
-await expect(orderID.includes(oidDetailsPage)).toBeTruthy();
-
-
-
-//await page.pause()
 });
