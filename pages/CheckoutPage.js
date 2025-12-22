@@ -1,3 +1,5 @@
+import { expect } from "@playwright/test"
+
 export class CheckoutPage {
   constructor(page) {
     this.page = page;
@@ -18,14 +20,14 @@ export class CheckoutPage {
     await this.nameOnCardLoc.nth(2).fill(nameOnCard);
   }
 
-  async verifyEmail() {
+  async verifyEmail(email) {
     await expect(this.verifyEmailLoc).toHaveText(email);
   }
 
   async selectCountry(country) {
     await this.countryLoc.pressSequentially("Pa");
 
-    const optionsSection = await this.countriesSectionLoc();
+    const optionsSection = await this.countriesSectionLoc;
     await optionsSection.waitFor();
 
     const optionsCount = await optionsSection.locator("button").count();

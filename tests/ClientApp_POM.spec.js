@@ -39,7 +39,7 @@ test.only("Browser Context Playwright Test", async ({ page }) => {
   await checkoutPage.enterCVV(cvv)
   await checkoutPage.enterNameOnCard(name)
 
-  await checkoutPage.verifyEmail()
+  await checkoutPage.verifyEmail(email)
 
   await checkoutPage.selectCountry("Pakistan")
   await checkoutPage.placeOrder()
