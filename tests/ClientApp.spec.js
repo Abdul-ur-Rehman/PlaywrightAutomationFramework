@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
+import { Dashboard } from "../pages/Dashboard";
 
 
 
@@ -8,27 +9,19 @@ test.only("Browser Context Playwright Test", async ({ page }) => {
   const email = "abdurrehman@dummy.com";
   const password = "Dummy@123"
   const productName = "ADIDAS ORIGINAL";
-  const productCards = page.locator(".card-body");
 
   const loginPage =  new LoginPage(page);
   await loginPage.goTo()
   await loginPage.validLogin(email, password)
-
-
   await page.waitForLoadState("networkidle");
 
-  const productsCount = await productCards.count();
-  console.log(productsCount);
 
-  for (let i = 0; i < productsCount; i++) {
-    const prodName = await productCards.nth(i).locator("b").textContent();
-    if (prodName === productName) {
-      await productCards.nth(i).locator("text= Add To Cart").click();
-      break;
-    }
-  }
+  const dashboard = new Dashboard(page)
 
-  await page.locator("[routerlink*=cart]").click();
+  await dashboard.searchProductAddToCart(productName)
+
+  await dashboard.navigateToCart()
+
   await page.locator("h3:has-text('ADIDAS ORIGINAL')").first().waitFor();
   const bool = await page.locator("h3:has-text('ADIDAS ORIGINAL')").isVisible();
   expect(bool).toBeTruthy();
