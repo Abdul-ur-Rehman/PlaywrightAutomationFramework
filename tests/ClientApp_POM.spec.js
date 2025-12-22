@@ -4,6 +4,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { CartPage } from "../pages/CartPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
 import { ThankYouPage } from "../pages/ThankYouPage";
+import { MyOrdersPage } from "../pages/MyOrdersPage";
 
 
 
@@ -54,21 +55,12 @@ test.only("Browser Context Playwright Test", async ({ page }) => {
 
   await thankYouPage.navigateToMyOrdersPage()
 
+  const myOrdersPage = new MyOrdersPage(page)
 
-const orderRows = await page.locator("tbody tr")
-await page.locator("tbody").waitFor();
-const allOrdersCount = await orderRows.count()
-console.log(allOrdersCount)
+  await myOrdersPage.navigateToOrderDetailsPage()
 
-for (let i=0; i<allOrdersCount; i++){
-    const oid = await orderRows.nth(i).locator("th").textContent()
-    
-    if (orderID.includes(oid)){
-        console.log(oid)
-        orderRows.nth(i).locator("button").first().click()
-        break
-    }
-}
+
+
 
 const oidDetailsPage = await page.locator(".col-text").textContent()
 
