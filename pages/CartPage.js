@@ -1,18 +1,24 @@
+import { expect } from "@playwright/test"
+
 export class CartPage{
 
     constructor(page){
 
         this.page = page
-        this.cartTableProductNameLoc = page.locator("h3:has-text('ADIDAS ORIGINAL')")
         this.checkoutPageBtnLoc = page.locator("text=Checkout");
 
     }
 
-    async verifyVisibilityOfCartedProduct(){
+    async verifyVisibilityOfCartedProduct(productName){
 
-        await this.cartTableProductNameLoc.first().waitFor();
-        const bool = await this.cartTableProductNameLoc.isVisible();
-        return bool
+        await this.getProductLocator(productName).first().waitFor(); 
+        const bool = await this.getProductLocator(productName).isVisible();
+        expect(bool).toBeTruthy();
+    }
+
+    getProductLocator(productName){
+
+        return this.page.locator("h3:has-text('"+productName+"')")        
     }
 
     async navigateToCheckout(){

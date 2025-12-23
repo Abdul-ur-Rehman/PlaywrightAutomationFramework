@@ -25,6 +25,9 @@ export class CheckoutPage {
   }
 
   async selectCountry(country) {
+
+    const countryInitials = country.substring(0, 3)
+    console.log(countryInitials)
     await this.countryLoc.pressSequentially("Pa");
 
     const optionsSection = await this.countriesSectionLoc;

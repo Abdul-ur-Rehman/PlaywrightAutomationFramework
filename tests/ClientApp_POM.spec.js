@@ -19,6 +19,7 @@ test("Browser Context Playwright Test", async ({ page }) => {
   const cvv = "123"
   const password = "Dummy@123"
   const productName = "ADIDAS ORIGINAL";
+  const countryName = "Pakistan"
 
   const loginPage =  poManger.getLoginPage()
   await loginPage.goTo()
@@ -34,9 +35,7 @@ test("Browser Context Playwright Test", async ({ page }) => {
 
   const cartPage = poManger.getCartPage()
 
-  const prodVisibility = await cartPage.verifyVisibilityOfCartedProduct()
-  console.log(prodVisibility)
-  expect(prodVisibility).toBeTruthy();
+  await cartPage.verifyVisibilityOfCartedProduct(productName)
 
   await cartPage.navigateToCheckout()
 
@@ -47,7 +46,7 @@ test("Browser Context Playwright Test", async ({ page }) => {
 
   await checkoutPage.verifyEmail(email)
 
-  await checkoutPage.selectCountry("Pakistan")
+  await checkoutPage.selectCountry(countryName)
   await checkoutPage.placeOrder()
 
   const thankYouPage = poManger.getThankyouPage()
