@@ -1,0 +1,18 @@
+[
+  {
+    "email": "abdurrehman@dummy.com",
+    "name": "Abdul-ur-Rehman",
+    "cvv": "123",
+    "password": "Dummy@123",
+    "productName": "ADIDAS ORIGINAL",
+    "countryName": "Pakistan"
+  },
+  {
+    "email": "abdurrehman@dummy.com",
+    "name": "Abdul-ur-Rehman",
+    "cvv": "123",
+    "password": "Dummy@123",
+    "productName": "iphone 13 pro",
+    "countryName": "Pakistan"
+  }
+]

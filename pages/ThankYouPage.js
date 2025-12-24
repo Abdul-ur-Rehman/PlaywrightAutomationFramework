@@ -17,7 +17,7 @@ export class ThankYouPage{
 
     async getOrderIdOnThankyouPage(){
 
-        const orderID = await this.oidThankyouPageLoc.textContent()
+        const orderID = await this.oidThankyouPageLoc.first().textContent()
         return orderID
     }
 

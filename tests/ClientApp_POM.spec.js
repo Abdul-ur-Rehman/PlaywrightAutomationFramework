@@ -1,39 +1,41 @@
 import { test, expect } from "@playwright/test";
 import { POManager } from "../pages/POManager";
-import dataset from "../utils/placeholderTestData.json"
+import dataset from "../utils/placeorderTestData.json"
 
 
+for (const data of dataset) {
 
-test("Browser Context Playwright Test", async ({ page }) => {
+
+  test(`Client App Login for ${data.productName}`, async ({ page }) => {
 
   const poManger = new POManager(page)
 
   const loginPage =  poManger.getLoginPage()
   await loginPage.goTo()
-  await loginPage.validLogin(dataset.email, dataset.password)
+  await loginPage.validLogin(data.email, data.password)
   await page.waitForLoadState("networkidle");
 
 
   const dashboard = poManger.getDashboard()
 
-  await dashboard.searchProductAddToCart(dataset.productName)
+  await dashboard.searchProductAddToCart(data.productName)
 
   await dashboard.navigateToCart()
 
   const cartPage = poManger.getCartPage()
 
-  await cartPage.verifyVisibilityOfCartedProduct(dataset.productName)
+  await cartPage.verifyVisibilityOfCartedProduct(data.productName)
 
   await cartPage.navigateToCheckout()
 
   const checkoutPage = poManger.getCheckoutPage()
 
-  await checkoutPage.enterCVV(dataset.cvv)
-  await checkoutPage.enterNameOnCard(dataset.name)
+  await checkoutPage.enterCVV(data.cvv)
+  await checkoutPage.enterNameOnCard(data.name)
 
-  await checkoutPage.verifyEmail(dataset.email)
+  await checkoutPage.verifyEmail(data.email)
 
-  await checkoutPage.selectCountry(dataset.countryName)
+  await checkoutPage.selectCountry(data.countryName)
   await checkoutPage.placeOrder()
 
   const thankYouPage = poManger.getThankyouPage()
@@ -54,3 +56,4 @@ test("Browser Context Playwright Test", async ({ page }) => {
   await orderDetailsPage.verfiyOrderDetailsPageOrderId(orderID)
 
 });
+}
